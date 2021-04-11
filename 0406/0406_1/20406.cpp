@@ -64,6 +64,8 @@ void displayScreen()
 	cout << "A : 상하좌우 + 를 . 으로 변경";
 	gotoXY(30, 4);
 	cout << "B : 외곽 + 를 좌우 대칭으로 . 으로 변경 (포탈기능)";
+	gotoXY(30, 5);
+	cout << "Z : 현재 위치 표시";
 }
 
 void move(int dir)
@@ -103,11 +105,25 @@ int main()
 
 	int r = 0;
 	int l = 0;
+	int arr1[10] = { 0, };
+	int arr2[10] = { 0, };
 
-	for (int i = 0; i <= 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		r = rand() % 19 + 1;
 		l = rand() % 19 + 1;
+
+		arr1[i] = r;
+		arr2[i] = l;
+
+		while (r == 0 || r == 19 || l == 0 || l == 19)
+		{
+			if (r == 0 || r == 19 || l == 0 || l == 19 || (r == arr1[i] && l == arr2[i]))
+			{
+				r = rand() % 19;
+				l = rand() % 19;
+			}
+		}
 
 		_putch(ShowMap[r][l] = '+');
 	}
@@ -203,8 +219,7 @@ int main()
 				{
 					ShowMap[currentY][0] = '.';
 					ShowMap[currentY][19] = '.';
-				}
-
+				}			
 			}
 		}
 
@@ -217,6 +232,11 @@ int main()
 			currentY = 19;
 		else if (currentY > 19)
 			currentY = 0;
+
+		ShowMap[0][0] = '+';
+		ShowMap[0][19] = '+';
+		ShowMap[19][0] = '+';
+		ShowMap[19][19] = '+';
 	}
 
 	return 0;
