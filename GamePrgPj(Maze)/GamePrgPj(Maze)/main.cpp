@@ -67,6 +67,14 @@ void displayScreen(int num)
 {
 	system(" mode  con lines=28   cols=42 ");
 
+	if (num == 0)
+	{
+		gotoXY(8, 3);
+		cout << "BANANA MAZE";
+		gotoXY(7, 4);
+		cout << ">> 1 : 종료    2 : 취소 <<" << endl;
+	}
+
 	if (num == 1)
 	{
 		for (y = 0; y < 13; y++)
@@ -309,7 +317,7 @@ void banana(int _n, int _x, int _y)
 			{
 				currentX += dir_x;
 				currentY += dir_y;
-				
+
 				initScreen(n);
 				Sleep(30);
 			}
@@ -403,24 +411,28 @@ int main()
 		{
 			if (key == 'q')
 			{
-				clrscr();
-				gotoXY(8, 3);
-				cout << "게임을 종료하시겠습니까?";
-				gotoXY(7, 4);
-				cout << ">> 1 : 종료    2 : 취소 <<" << endl;
-
-				key = _getch();
-
-				if (key == '1')
+				while (true)
 				{
 					clrscr();
-					gotoXY(7, 3);
-					cout << "게임을 종료하였습니다";
-					exit(0);
-				}
-				else if (key == '2')
-				{
-					return main();
+					gotoXY(8, 3);
+					cout << "게임을 종료하시겠습니까?";
+					gotoXY(7, 4);
+					cout << ">> 1 : 종료    2 : 취소 <<" << endl;
+
+					int key2 = _getch();
+
+					if (key2 == '1')
+					{
+						clrscr();
+						gotoXY(7, 4);
+						cout << "게임을 종료하였습니다";
+						exit(0);
+						break;
+					}
+					else if (key2 == '2')
+					{
+						return main();
+					}
 				}
 			}
 
