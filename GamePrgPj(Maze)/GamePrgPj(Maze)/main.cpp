@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <Windows.h>
 #include <mmsystem.h>
+#include <vector>
 #pragma comment(lib,"winmm.lib")
 
 #include "Console.h"
@@ -60,6 +61,7 @@ char Lv3Map[13][16] =
 int currentX, currentY;
 int x, y;
 int n = 1;
+int dir_x, dir_y;
 
 void displayScreen(int num)
 {
@@ -71,7 +73,7 @@ void displayScreen(int num)
 		{
 			for (x = 0; x < 16; x++)
 			{
-				gotoXY(x + 5, y + 2);
+				gotoXY(x + 13, y + 4);
 				if (Lv1Map[y][x] == '1')
 				{
 					_putch(Lv1Map[y][x] = ' ');
@@ -115,7 +117,7 @@ void displayScreen(int num)
 		{
 			for (x = 0; x < 16; x++)
 			{
-				gotoXY(x + 5, y + 2);
+				gotoXY(x + 13, y + 4);
 				if (Lv2Map[y][x] == '1')
 				{
 					_putch(Lv2Map[y][x] = ' ');
@@ -159,7 +161,7 @@ void displayScreen(int num)
 		{
 			for (x = 0; x < 16; x++)
 			{
-				gotoXY(x + 5, y + 2);
+				gotoXY(x + 13, y + 4);
 				if (Lv3Map[y][x] == '1')
 				{
 					_putch(Lv3Map[y][x] = ' ');
@@ -189,8 +191,8 @@ void displayScreen(int num)
 			{
 				if (Lv3Map[y][x] == '&')
 				{
-					currentX = x + 5;
-					currentY = y + 2;
+					currentX = x;
+					currentY = y;
 					Lv3Map[y][x] = ' ';
 				}
 			}
@@ -206,7 +208,7 @@ void initScreen(int num)
 		{
 			for (x = 0; x < 16; x++)
 			{
-				gotoXY(x + 5, y + 2);
+				gotoXY(x + 13, y + 4);
 				if (Lv1Map[y][x] == '^')
 				{
 					setTextColor(14);
@@ -227,7 +229,7 @@ void initScreen(int num)
 		{
 			for (x = 0; x < 16; x++)
 			{
-				gotoXY(x, y);
+				gotoXY(x + 13, y + 4);
 				if (Lv2Map[y][x] == '^')
 				{
 					setTextColor(14);
@@ -248,10 +250,10 @@ void initScreen(int num)
 		{
 			for (x = 0; x < 16; x++)
 			{
-				gotoXY(x, y);
+				gotoXY(x + 13, y + 4);
 				if (Lv3Map[y][x] == '^')
 				{
-					setTextColor(8);
+					setTextColor(14);
 					_putch(Lv3Map[y][x]);
 					setTextColor(7);
 				}
@@ -263,13 +265,11 @@ void initScreen(int num)
 		}
 	}
 
-	gotoXY(currentX + 5, currentY + 2);
+	gotoXY(currentX + 13, currentY + 4);
 	_putch('&');
 
-	gotoXY(18, 13);
+	gotoXY(30, 26);
 }
-
-int dir_x, dir_y;
 
 void banana(int _n, int _x, int _y)
 {
@@ -369,11 +369,11 @@ void move(int dir, int num)
 	banana(num, dir_x, dir_y);
 }
 
-
 int main()
 {
-	PlaySound("C:\\Users\\ROG\\source\\repos\\GamePrgPj(Maze)\\GamePrgPj(Maze)\\BGM LAB - Take a break.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	PlaySound("C:\\Users\\ROG\\Documents\\School_Programming\\GamePrgPj(Maze)\\GamePrgPj(Maze)\\BGM LAB - Take a break.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	int key;
+
 	displayScreen(n);
 
 	clrscr();
